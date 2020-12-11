@@ -42,6 +42,9 @@ int main () {
 		-0.5f, -0.5f, 0,
 		0.5f, -0.5f, 0,
 		-0.5f, 0.5f, 0,
+
+		0.5f, -0.5f, 0,
+		-0.5f, 0.5f, 0,
 		0.5f, 0.5f, 0
 	};
 
@@ -116,10 +119,8 @@ int main () {
 		glVertexAttribPointer(colorIndex, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 		//Draws elements from each enabled array using the specified mode (which is default for Unity etc as well)
-		for (int i = 0;i <= 1; i++) {
-			glDrawArrays(GL_TRIANGLES, i, 3);
-		}
 
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glDisableVertexAttribArray (vertexIndex);
         glDisableVertexAttribArray (colorIndex);
