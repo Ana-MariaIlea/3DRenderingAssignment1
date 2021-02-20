@@ -1,40 +1,55 @@
 #version 330
 
 in vec3 fColor;
-in vec4 off;
-layout(origin_upper_left) in vec4 gl_FragCoord;
+
 uniform float rows;
 uniform float columns;
+uniform float Ufactor;
+uniform vec2 mousePosition;
 
 out vec4 sColor;
 
 void main (void) {
 
-    float scale=1;
+    float scale=2;
     
-    float row=1.0/rows;
-    float col=1.0/columns;
+    float row=(scale/rows)*Ufactor;
+    float col=(scale/columns)*Ufactor;
     
-    vec2 pos = off.xy;
+    vec3 color;
+    
 
+    // get the index
+    float a=mod(fColor.x,col*2);
+    float b=mod(fColor.y,row*2);
+ 
+    // color based on index
+    if ((a > col)&&(b > row)){
+    color=vec3(1.0, 1.0, 1.0);
+    }
+    if ((a <col)&&(b < row)){
+    color=vec3(1.0, 1.0, 1.0);
+    }
+    if ((a < col)&&(b > row)){
+    color=vec3(0.0, 0.0, 0.0);
+    }
+    if ((a > col)&&(b < row)){
+    color=vec3(0.0, 0.0, 0.0);
+    }
 
-for(float i=-0.5;i<0.5;i+=col*2)
-for(float j=-0.5;j<0.5;j+=row*2){
-    if ((pos.x > i && pos.x<i+col)&&(pos.y > j&&pos.y<j+row)){
-    sColor=vec4(1.0, 1.0, 1.0, 1.0);
-    }
-    if ((pos.x > i+col && pos.x<i+col*2)&&(pos.y >j+row&&pos.y<j+row*2)){
-    sColor=vec4(1.0, 1.0, 1.0, 1.0);
-    }
-    if ((pos.x > i+col && pos.x<i+col*2)&&(pos.y >j&&pos.y<j+row)){
-    sColor=vec4(0.0, 0.0, 0.0, 1.0);
-    }
-    if ((pos.x > i && pos.x<i+col)&&(pos.y >j+row&&pos.y<j+row*2)){
-    sColor=vec4(0.0, 0.0, 0.0, 1.0);
-    }
-}
+    vec2 dist=vec2(gl_FragCoord.x,gl_FragCoord.y)-vec2(mousePosition.x,600-mousePosition.y);
 
-   
+    float d=length(dist);
+
+    if(d<100)
+    {
+        vec3 colorAlpha = mix(vec3(1.0,1.0,1.0),color,d/100);
+        sColor=vec4(colorAlpha,1.0);
+    }
+    else
+    { 
+        sColor=vec4(color,1.0);
+    }  
 }
 
 

@@ -1,2 +1,6 @@
 ﻿  main.cpp
-  mge.vcxproj -> D:\school\year_2\term_2\3DRendering\3DRenderingAssignment1\lecture1samples\006_programmable_pipeline_triangle_example_external_shaders\_visual_studio\debug_static_exe/sample.exe
+D:\school\year_2\term_2\3DRendering\3DRenderingAssignment1\lecture1samples\006_programmable_pipeline_triangle_example_external_shaders\src\main.cpp(146,72): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+D:\school\year_2\term_2\3DRendering\3DRenderingAssignment1\lecture1samples\006_programmable_pipeline_triangle_example_external_shaders\src\main.cpp(146,64): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  ShaderUtil.cpp
+  Generating Code...
+  mge.vcxproj -> D:\school\year_2\term_2\3DRendering\3DRenderingAssignment1\lecture1samples\006_programmable_pipeline_triangle_example_external_shaders\_visual_studio\debug_static_exe\sample.exe

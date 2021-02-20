@@ -62,10 +62,13 @@ int main () {
 
     const GLfloat colors[] {
         //1 triangle, 3 vertices per triangle, 1 color per vertex, 3 "floats" per color RGB = 9 floats in total
-        1,0,0,
-        0,1,0,
-        0,0,1,
-		1,0,0
+		-1, 1, 0,
+		1, 1, 0,
+		-1, -1, 0,
+
+		1, 1, 0,
+		-1, -1, 0,
+		1, -1, 0
     };
 
 	//create a handle to the buffer
@@ -82,6 +85,11 @@ int main () {
 
 	sf::Clock clock;
 
+
+
+	float factor = 1;
+	float speed = 0.0005f;
+
     glClearColor(0, 0, 0, 1);
     while (window.isOpen()) {
 
@@ -96,6 +104,47 @@ int main () {
 
 		glUniform1f(glGetUniformLocation(programID, "rows"), 4);
 		glUniform1f(glGetUniformLocation(programID, "columns"), 8);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			if (speed>0)
+			{
+				speed += 0.0005f;
+			}
+			else {
+				speed -= 0.0005f;
+
+			}
+			
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			if (speed > 0)
+			{
+				speed -= 0.0005f;
+			}
+			else {
+				speed += 0.0005f;
+
+			}
+		}
+
+		if (factor > 3 || factor<0.5f) 
+		{
+			speed *= -1;
+		}
+
+		factor += speed;
+
+
+		glUniform1f(glGetUniformLocation(programID, "Ufactor"), factor);
+
+		int mouseX=sf::Mouse::getPosition(window).x;
+		int mouseY= sf::Mouse::getPosition(window).y;
+
+
+		glUniform2f(glGetUniformLocation(programID, "mousePosition"),mouseX, mouseY);
+
 
         //get index for the attributes in the shader
         GLint vertexIndex = glGetAttribLocation(programID, "vertex");
